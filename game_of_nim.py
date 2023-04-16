@@ -22,7 +22,21 @@ class GameOfNim(Game):
 
 
     def __init__(self, board):
-        self.initial = GameState(to_move='', utility=0, board=[7,5,3,1], moves='x')
+        moves1 = [(x, y) for x in range(0, 1)
+                  for y in range(1, board[0] + 1)]
+
+        moves2 = [(x, y) for x in range(1,2)
+                 for y in range(1, board[1] + 1)]
+
+        moves3 = [(x, y) for x in range(2,3)
+                 for y in range(1, board[2] + 1)]
+
+        moves4 = [(x, y) for x in range(3,4)
+                 for y in range(1, board[3] + 1)]
+
+        moves = moves1 + moves2 + moves3 + moves4
+
+        self.initial = GameState(to_move='', utility=0, board=[7,5,3,1], moves=moves)
 
     def result(self, state, move): pass
 
