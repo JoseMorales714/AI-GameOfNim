@@ -20,30 +20,15 @@ class GameOfNim(Game):
 
     # E.g., [5, 3, 1] represents 5 objects in the first row, 3 in the second, and 1 in the third row.
 
+    def __init__(self):
+        self.initial = GameState(to_move='', utility=0, board=[7,5,3,1], moves='x')
 
-    def __init__(self, initial = [7,5,3,1]):
-        super().__init__(initial)
-
-
-    def result(self, state, move):
-        if move not in state.moves:
-            return state  # Illegal move has no effect
-        board = state.board.copy()
-        board[move] = state.to_move
-        moves = list(state.moves)
-        moves.remove(move)
-        return GameState(to_move=('O' if state.to_move == 'X' else 'X'),
-                         utility=self.compute_utility(board, move, state.to_move),
-                         board=board, moves=moves)
-
+    def result(self, state, move): pass
 
 
     def actions(self, state):
         """Legal moves are any square not yet taken."""
         return state.moves
-
-
-
 
     def terminal_test(self, state):
         """A state is terminal if it is won or there are no empty squares."""
