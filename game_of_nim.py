@@ -10,7 +10,7 @@
 # The name of the class should be GameOfNim. Gradescope will run a few unit tests automatically and show you the results.
 # You can submit multiple times.
 
-# Members-> Jose Morales and Hongfei Wang
+# Members-> Jose Morales and Hongfei Wang and Sean McCarthy
 # Date-> 04/14/2023
 
 
@@ -38,8 +38,10 @@ class GameOfNim(Game):
 
         self.initial = GameState(to_move='', utility=0, board=[7,5,3,1], moves=moves)
 
-    def result(self, state, move): pass
+    def result(self, state, move): 
+        state[2][move[0]] = state[2][move[0]] - move[1]
 
+        return state
 
     def actions(self, state):
         """Legal moves are any square not yet taken."""
@@ -67,10 +69,10 @@ if __name__ == "__main__":
 
     print(nim.initial.board) # must be [0, 5, 3, 1]
     print(nim.initial.moves) # must be [(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2,1), (2, 2), (2, 3), (3, 1)]
-    print(nim.result(nim.initial, (1,3) ))
+    print(nim.result(nim.initial,(1,2)))
 
-    utility = nim.play_game(alpha_beta_player, query_player) # computer moves first
-    if (utility < 0):
-        print("MIN won the game")
-    else:
-        print("MAX won the game")
+    #utility = nim.play_game(alpha_beta_player, query_player) # computer moves first
+    #if (utility < 0):
+    #    print("MIN won the game")
+    #else:
+    #    print("MAX won the game")
