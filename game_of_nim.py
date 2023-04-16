@@ -20,7 +20,8 @@ class GameOfNim(Game):
 
     # E.g., [5, 3, 1] represents 5 objects in the first row, 3 in the second, and 1 in the third row.
 
-    def __init__(self):
+
+    def __init__(self, board):
         self.initial = GameState(to_move='', utility=0, board=[7,5,3,1], moves='x')
 
     def result(self, state, move): pass
@@ -29,6 +30,9 @@ class GameOfNim(Game):
     def actions(self, state):
         """Legal moves are any square not yet taken."""
         return state.moves
+
+
+
 
     def terminal_test(self, state):
         """A state is terminal if it is won or there are no empty squares."""
