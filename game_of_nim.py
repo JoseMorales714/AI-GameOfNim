@@ -22,40 +22,37 @@ class GameOfNim(Game):
 
 
     def __init__(self, board):
-        moves1 = [(x, y) for x in range(0, 1)
-                  for y in range(1, board[0] + 1)]
+        r1 = 0
+        r2 = 1
+        moves = []
+        i = 0
+        for level in board:
+            movestemp = [(x, y) for x in range(r1, r2)
+                    for y in range(1, board[i] + 1)]
+            moves = moves + movestemp
+            r1 = r1 + 1
+            r2 = r2 + 1
+            i = i + 1
 
-        moves2 = [(x, y) for x in range(1,2)
-                 for y in range(1, board[1] + 1)]
-
-        moves3 = [(x, y) for x in range(2,3)
-                 for y in range(1, board[2] + 1)]
-
-        moves4 = [(x, y) for x in range(3,4)
-                 for y in range(1, board[3] + 1)]
-
-        moves = moves1 + moves2 + moves3 + moves4
-
-        self.initial = GameState(to_move='', utility=0, board=[7,5,3,1], moves=moves)
+        self.initial = GameState(to_move='', utility=0, board=board, moves=moves)
 
     
     def result(self, state, move): 
         state[2][move[0]] = state[2][move[0]] - move[1]
-        moves1 = [(x, y) for x in range(0, 1)
-                  for y in range(1, state[2][0] + 1)]
+        r1 = 0
+        r2 = 1
+        i = 0
+        moves = []
+        for level in state[2]:
+            movestemp = [(x, y) for x in range(r1, r2)
+                    for y in range(1, state[2][i] + 1)]
+            moves = moves + movestemp
+            r1 = r1 + 1
+            r2 = r2 + 1
+            i = i + 1
+        
 
-        moves2 = [(x, y) for x in range(1,2)
-                 for y in range(1, state[2][1] + 1)]
-
-        moves3 = [(x, y) for x in range(2,3)
-                 for y in range(1, state[2][2] + 1)]
-
-        moves4 = [(x, y) for x in range(3,4)
-                 for y in range(1, state[2][3] + 1)]
-
-        movescurr = moves1 + moves2 + moves3 + moves4
-
-        state = GameState(to_move='', utility=0, board=state[2], moves=movescurr)
+        state = GameState(to_move='', utility=0, board=state[2], moves=moves)
         return state
 
     def actions(self, state):
@@ -79,15 +76,15 @@ class GameOfNim(Game):
 
 
 if __name__ == "__main__":
-    nim = GameOfNim(board=[0, 5, 3, 1]) # Creating the game instance
+    nim = GameOfNim(board=[0, 5, 3, 1, 1]) # Creating the game instance
     #nim = GameOfNim(board=[7, 5, 3, 1]) # a much larger tree to search
 
     print(nim.initial.board) # must be [0, 5, 3, 1]
     print(nim.initial.moves) # must be [(1, 1), (1, 2), (1, 3), (1, 4), (1, 5), (2,1), (2, 2), (2, 3), (3, 1)]
     print(nim.result(nim.initial,(1,2)))
 
-    #utility = nim.play_game(alpha_beta_player, query_player) # computer moves first
-    #if (utility < 0):
-    #    print("MIN won the game")
-    #else:
-    #    print("MAX won the game")
+    utility = nim.play_game(alpha_beta_player, query_player) # computer moves first
+    if (utility < 0):
+        print("MIN won the game")
+    else:
+        print("MAX won the game")
