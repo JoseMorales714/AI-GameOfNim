@@ -34,7 +34,7 @@ class GameOfNim(Game):
             r2 = r2 + 1
             i = i + 1
 
-        self.initial = GameState(to_move='', utility=0, board=board, moves=moves)
+        self.initial = GameState(to_move='Max', utility=0, board=board, moves=moves)
 
     
     def result(self, state, move): 
@@ -51,8 +51,11 @@ class GameOfNim(Game):
             r2 = r2 + 1
             i = i + 1
         
-
-        state = GameState(to_move='', utility=0, board=state[2], moves=moves)
+        if state[0] == 'Max':
+            m = 'Min'
+        else:
+            m = "Max"
+        state = GameState(to_move=m, utility=state[1], board=state[2], moves=moves)
         return state
 
     def actions(self, state):
@@ -68,7 +71,7 @@ class GameOfNim(Game):
 
     def utility(self, state, player):
         """Return the value to player; 1 for win, -1 for loss, 0 otherwise."""
-        return state.utility if player == 'X' else -state.utility
+        return state.utility if player == 'Max' else -state.utility
 
     def to_move(self, state):
         """Return the player whose move it is in this state."""
@@ -86,5 +89,7 @@ if __name__ == "__main__":
     utility = nim.play_game(alpha_beta_player, query_player) # computer moves first
     if (utility < 0):
         print("MIN won the game")
+        print(utility)
     else:
         print("MAX won the game")
+        print(utility)
