@@ -38,9 +38,24 @@ class GameOfNim(Game):
 
         self.initial = GameState(to_move='', utility=0, board=[7,5,3,1], moves=moves)
 
+    
     def result(self, state, move): 
         state[2][move[0]] = state[2][move[0]] - move[1]
+        moves1 = [(x, y) for x in range(0, 1)
+                  for y in range(1, state[2][0] + 1)]
 
+        moves2 = [(x, y) for x in range(1,2)
+                 for y in range(1, state[2][1] + 1)]
+
+        moves3 = [(x, y) for x in range(2,3)
+                 for y in range(1, state[2][2] + 1)]
+
+        moves4 = [(x, y) for x in range(3,4)
+                 for y in range(1, state[2][3] + 1)]
+
+        movescurr = moves1 + moves2 + moves3 + moves4
+
+        state = GameState(to_move='', utility=0, board=state[2], moves=movescurr)
         return state
 
     def actions(self, state):
